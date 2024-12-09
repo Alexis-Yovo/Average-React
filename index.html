@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+ const students = [
+  { notes: [12, 11, 10], name: "Alan" },
+  { notes: [18, 10, 19], name: "Alice" },
+  { notes: [10, 9, 11], name: "Bernard" },
+  { notes: [11, 17, 19], name: "Sophie" },
+ ];
+
+ // Composant Student
+ const Student = ({ name, average }) => {
+  return (
+   <li>{name} - Moyenne: {average.toFixed(1)}</li>
+  );
+ };
+
+ // Composant StudentList
+ const StudentList = ({ students }) => {
+  return (
+   <ul>
+    {students.map((student, index) => {
+     const average = student.notes.reduce((sum, note) => sum + note, 0) / student.notes.length;
+     return <Student key={index} name={student.name} average={average} />;
+    })}
+   </ul>
+  );
+ };
+
+ // Composant principal App
+ const App = () => {
+  return (
+   <div>
+    <h1>Liste des étudiants</h1>
+    <StudentList students={students} />
+   </div>
+  );
+ };
+
+ ReactDOM.createRoot(
+  document.querySelector("#root")
+ ).render(
+  <App />
+ );
+
+</script>
+</body>
+</html>
